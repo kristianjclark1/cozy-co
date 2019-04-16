@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using CozyCo.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
-using CozyCo.Models;
 
-namespace CozyCo.Controllers
+namespace CozyCo.WebUI.Controllers
 {
     public class HomeController : Controller
     {

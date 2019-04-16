@@ -1,0 +1,38 @@
+﻿@*Model Definition*@
+@model List<Property>
+
+<h1> List of Properties </h1>
+
+<table>
+    <tr>
+        <th>Address</th>
+        <th>City</th>
+        <th>Zipcode</th>
+        <th>Image</th>
+    </tr>
+
+
+    @foreach (var property in Model)
+    {
+        <tr>
+            <td>@property.Address @property.Address2</td>
+            <td>@property.City</td>
+            <td>@property.Zipcode</td>
+            <td>@property.Image</td>
+        </tr>
+
+    }
+
+    @if (Model.Count == 0)
+    {
+        <tr>
+            <td colspan="4">
+                You don't have any properties yet - <a href="property/add">Add Property</a>
+            </td>
+        </tr>
+    }
+
+
+</table>
+
+
