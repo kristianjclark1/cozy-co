@@ -1,14 +1,27 @@
 ﻿@*Model Definition*@
 @model List<Property>
 
+@if (ViewBag["Error"] !=null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag["Error"]
+    </div>
+}
+
+
 <h1> List of Properties </h1>
 
-<table>
+@if (Model.Count > 0)
+{
+    <a class="btn btn-secondary float-right" asp-controller="property" asp-action="add">Add new Property</a>
+}
+
+<table class="table">
     <tr>
         <th>Address</th>
         <th>City</th>
         <th>Zipcode</th>
-        <th>Image</th>
+        <th></th>
     </tr>
 
 
@@ -18,7 +31,11 @@
             <td>@property.Address @property.Address2</td>
             <td>@property.City</td>
             <td>@property.Zipcode</td>
-            <td>@property.Image</td>
+            <td>
+                <a asp-controller="property" asp-action="detail" asp-route-id="@property.Id">Detail</a> |
+                <a asp-controller="property" asp-action="edit" asp-route-id="@property.Id">Edit</a> |
+                <a href="#" class="js-open-modal" data-property-id="@property.Id">Delete</a>
+            </td>
         </tr>
 
     }
@@ -34,5 +51,41 @@
 
 
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="delete-confirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+            <div class="modal-body">
+                Are you sure you want to delete that property?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a id="js-delete-button" class="btn btn-primary">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        $('.js-open-modal').on('click', event => {
+            const propertyId = $(event.target).data('property-id');
+            const url = `/property/delete/${propertyId}`;
+
+            $('#js-delete-button').attr('href', url);
+
+            $('#delete-confirmation').modal('show');
+        });
+    </script>
+}
+
 
 

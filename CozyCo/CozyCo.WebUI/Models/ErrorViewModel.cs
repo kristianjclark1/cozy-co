@@ -1,6 +1,6 @@
 using System;
 
-namespace CozyCo.WebUI.Models
+namespace CozyCo.Models
 {
     public class ErrorViewModel
     {

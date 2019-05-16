@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CozyCo.WebUI", "CozyCo.WebUI\CozyCo.WebUI.csproj", "{ADA262BF-081D-487C-99FC-A458B796219B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CozyCo.WebUI", "CozyCo.WebUI\CozyCo.WebUI.csproj", "{ADA262BF-081D-487C-99FC-A458B796219B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CozyCo.Models", "CozyCo.Models\CozyCo.Models.csproj", "{0518D96C-E25F-40B3-BC60-180017029EA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CozyCo.Domain", "CozyCo.Models\CozyCo.Domain.csproj", "{0518D96C-E25F-40B3-BC60-180017029EA3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CozyCo.Data", "CozyCo.Data\CozyCo.Data.csproj", "{F7B8E193-1CE2-4C1E-8ABB-866FCBC5CD9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CozyCo.Service", "CozyCo.Service\CozyCo.Service.csproj", "{2167E136-718F-4380-AC77-4469342448E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{0518D96C-E25F-40B3-BC60-180017029EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0518D96C-E25F-40B3-BC60-180017029EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0518D96C-E25F-40B3-BC60-180017029EA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B8E193-1CE2-4C1E-8ABB-866FCBC5CD9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B8E193-1CE2-4C1E-8ABB-866FCBC5CD9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B8E193-1CE2-4C1E-8ABB-866FCBC5CD9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B8E193-1CE2-4C1E-8ABB-866FCBC5CD9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2167E136-718F-4380-AC77-4469342448E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2167E136-718F-4380-AC77-4469342448E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2167E136-718F-4380-AC77-4469342448E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2167E136-718F-4380-AC77-4469342448E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
