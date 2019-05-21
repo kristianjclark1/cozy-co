@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CozyCo.Data.Context;
 using CozyCo.Data.Implementation.SqlServer;
 using CozyCo.Data.Interfaces;
+using CozyCo.Domain.Models;
 using CozyCo.Service.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,7 +41,7 @@ namespace CozyCo.WebUI
             services.AddDbContext<CozyCoDbContext>();
 
             //Add Identity has a service                                  //store user
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<CozyCoDbContext>();
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<CozyCoDbContext>();
 
             AddServiceImplementation(services);
             AddRepositoryImplementation(services);
