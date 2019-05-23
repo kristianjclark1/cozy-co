@@ -39,9 +39,19 @@
                             <li class="nav-item">
                                 <a asp-controller="account" asp-action="Register" class="nav-link text-dark">Register</a>
                             </li>
+                            <li class="nav-item">
+                                <a asp-controller="account" asp-action="login" class="nav-link text-dark">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="account" asp-action="logout" class="nav-link text-dark">Logout</a>
+                            </li>
                         }
 
                     </ul>
+                   
                 </div>
             </div>
         </nav>
