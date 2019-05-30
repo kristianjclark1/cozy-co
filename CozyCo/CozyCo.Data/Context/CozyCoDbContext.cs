@@ -1,4 +1,5 @@
-﻿using CozyCo.Domain.Models;
+﻿using CozyCo.Domain.Model;
+using CozyCo.Domain.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,6 +16,7 @@ namespace CozyCo.Data.Context
         // They map to tables by default
        public DbSet<Property> Properties { get; set; }
        public DbSet<PropertyType>PropertyTypes { get; set; }
+       public DbSet<Lease> Leases { get; set; }
 
         //Virtual medthod designed to be overridden
         // You can provide configuration information for the context
@@ -32,11 +34,29 @@ namespace CozyCo.Data.Context
         {
             // base = IdentityDbContext
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<PropertyType>().HasData(
                 new PropertyType { Id = 1, Description = "Condo"},
                 new PropertyType { Id = 2, Description = "Single Family Home" },
                 new PropertyType { Id = 3, Description = "Duplex" }
             );
+
+            //Adding Lease as the table in between Property and AppUser
+            modelBuilder.Entity<Lease>()
+                .HasKey(l => new { l.PropertyId, l.TenantId }); //combined PK
+
+            modelBuilder.Entity<Lease>() //Tenant is an Appuser
+                .HasOne(l => l.Tenant)
+                .WithMany(t => t.Leases) 
+                .HasForeignKey(l => l.TenantId);
+
+            modelBuilder.Entity<Lease>()
+                .HasOne(l => l.Property)
+                .WithMany(p => p.Leases)
+                .HasForeignKey(l => l.PropertyId);
+
+
+            
         }
     }
 }

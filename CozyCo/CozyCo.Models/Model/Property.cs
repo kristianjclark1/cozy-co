@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CozyCo.Domain.Model;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CozyCo.Domain.Models
@@ -30,6 +32,8 @@ namespace CozyCo.Domain.Models
         // Fully Defined Relationship for App User
         public string AppUserId { get; set; }
         public AppUser Landlord { get; set; }
+
+        public ICollection<Lease> Leases { get; set; }
         
     }
 }
