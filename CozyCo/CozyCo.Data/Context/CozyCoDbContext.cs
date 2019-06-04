@@ -1,5 +1,6 @@
 ﻿using CozyCo.Domain.Model;
 using CozyCo.Domain.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -55,6 +56,10 @@ namespace CozyCo.Data.Context
                 .WithMany(p => p.Leases)
                 .HasForeignKey(l => l.PropertyId);
 
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Name = "Tenant", NormalizedName="TENANT"},
+                new IdentityRole { Name = "Landlord", NormalizedName = "LANDLORD" }
+                );
 
             
         }

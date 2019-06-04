@@ -13,11 +13,15 @@ namespace CozyCo.WebUI.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, 
+            SignInManager<AppUser> signInManager, 
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -27,8 +31,16 @@ namespace CozyCo.WebUI.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            
             RedirectUserWhenAlreadyLoggedIn();
-            return View();
+            var roles = _roleManager.Roles.ToList();
+
+            var vm = new RegisterViewModel
+            {
+                Roles = roles
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
@@ -47,14 +59,26 @@ namespace CozyCo.WebUI.Controllers
 
                 var result = await _userManager.CreateAsync(newUser, vm.Password);
 
-                if (result.Succeeded)
+                if (result.Succeeded)//new user got created
                 {
-                    //new user got created
-                    //we can login the user
-                    await _signInManager.SignInAsync(newUser, false);
-                    //send the user to the right page (redirect)
-                    return RedirectToAction("Index", "Home"); // /home/index
+                    //assign the selected role to the newly created user
+                    result = await _userManager.AddToRoleAsync(newUser, vm.Password);
 
+                    if (result.Succeeded)
+                    {
+                        //we can login the user
+                        await _signInManager.SignInAsync(newUser, false);
+
+                        //redirect
+                        if(vm.Role=="Landlord")
+                        {
+                            return RedirectToAction("Index", "Landlord");
+                        }
+
+                        return RedirectToAction("Index", "Tenant");
+                    }
+                    
+                 
                 }
                 else
                 {
