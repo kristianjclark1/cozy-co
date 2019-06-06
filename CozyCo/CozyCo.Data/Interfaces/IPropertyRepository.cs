@@ -9,7 +9,7 @@ namespace CozyCo.Data.Interfaces
     {
         //Read
         Property GetById(int id);
-        ICollection<Property> GetAllProperties();
+        ICollection<Property> GetAllPropertiesByUserId(string userId);
 
         //Create
         Property Create(Property newProperty);

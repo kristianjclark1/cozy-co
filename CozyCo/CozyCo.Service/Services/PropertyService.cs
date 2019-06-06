@@ -11,7 +11,7 @@ namespace CozyCo.Service.Services
         
         //Read
         Property GetById(int id);
-        ICollection<Property> GetAllProperties();
+        ICollection<Property> GetAllPropertiesByUserId(string userId);
 
         //Create
         Property Create(Property newProperty);
@@ -34,9 +34,9 @@ namespace CozyCo.Service.Services
             _propertyRepository = propertyRepository;//not null
         }
 
-        public ICollection<Property>GetAllProperties()
+        public ICollection<Property>GetAllPropertiesByUserId(string userId)
         {
-            return _propertyRepository.GetAllProperties();
+            return _propertyRepository.GetAllPropertiesByUserId(userId);
         }
 
         public Property Create(Property newProperty)

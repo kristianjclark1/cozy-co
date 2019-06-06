@@ -4,20 +4,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using CozyCo.Domain.Models;
 using CozyCo.Service.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CozyCo.WebUI.Controllers
 {
+    [Authorize(Roles ="Landlord")]
     public class PropertyController : Controller
     {
         private const string PROPERTYTYPES = "PropertyTypes";
         private readonly IPropertyService _propertyService;
         private readonly IPropertyTypeService _propertyTypeService;
+        private readonly UserManager<AppUser> _userManager;
 
-        public PropertyController(IPropertyService propertyService, IPropertyTypeService propertyTypeService)
+        public PropertyController(IPropertyService propertyService, IPropertyTypeService propertyTypeService,
+            UserManager<AppUser>userManaager)
         {
             _propertyService = propertyService;
             _propertyTypeService = propertyTypeService;
+            _userManager = userManaager;
         }
 
         //property/Index
@@ -33,10 +39,12 @@ namespace CozyCo.WebUI.Controllers
 
             }
 
-
-
-            var properties = _propertyService.GetAllProperties();
+            // should have the user id to filter the properties they own
+            var userId = _userManager.GetUserId(User);
+            var properties = _propertyService.GetAllPropertiesByUserId(userId);
             return View(properties);
+
+
         }
 
         //GET property/add
@@ -48,11 +56,14 @@ namespace CozyCo.WebUI.Controllers
             return View("Form"); //--> looking for Add.cshtml, renamed to Form.cshtml
         }
 
+        [Authorize(Roles = "Landlord")]
         [HttpPost]
         public IActionResult Add(Property newProperty) // -> receive data from HTML form
         {
             if (ModelState.IsValid) // all required fields are completed
             {
+                // assign the user to property(house)
+                newProperty.AppUserId = _userManager.GetUserId(User);
                 // We should be able to add the new property
                 _propertyService.Create(newProperty);
                 //Service receives the new property
@@ -67,6 +78,8 @@ namespace CozyCo.WebUI.Controllers
 
 
         }
+
+        [Authorize(Roles ="Landlord, Tenant")]
         public IActionResult Detail(int id) // -> get id from URL
         {
             var property = _propertyService.GetById(id);

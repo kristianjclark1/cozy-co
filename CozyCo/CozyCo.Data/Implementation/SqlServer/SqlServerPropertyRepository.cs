@@ -20,12 +20,13 @@ namespace CozyCo.Data.Implementation.SqlServer
                 return property;
             }
         }
-        public ICollection<Property> GetAllProperties()
+        public ICollection<Property> GetAllPropertiesByUserId(string userId)
         {
             using (var context = new  CozyCoDbContext())
             {
                 //DbSet != ICollection
                 return context.Properties
+                    .Where(p => p.AppUserId == userId)
                     .ToList();
             }
         }

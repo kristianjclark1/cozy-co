@@ -62,7 +62,7 @@ namespace CozyCo.WebUI.Controllers
                 if (result.Succeeded)//new user got created
                 {
                     //assign the selected role to the newly created user
-                    result = await _userManager.AddToRoleAsync(newUser, vm.Password);
+                    result = await _userManager.AddToRoleAsync(newUser, vm.Role);
 
                     if (result.Succeeded)
                     {
@@ -91,6 +91,11 @@ namespace CozyCo.WebUI.Controllers
 
             }
             // sending back the error(s) to the view (register form)
+
+            // repopulate the Roles to generate dropdown
+            var roles = _roleManager.Roles.ToList();
+            vm.Roles = roles;
+
             return View(vm);
         }
 
